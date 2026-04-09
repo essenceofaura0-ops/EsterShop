@@ -297,7 +297,17 @@
       "blocks": {
         "ai_gen_block_cc4aeee_GjHW3m": {
           "type": "ai_gen_block_cc4aeee",
-          "settings": {},
+          "settings": {
+            "logo_1": "shopify://shop_images/Yahoo_news_logo_svg.png",
+            "logo_2": "shopify://shop_images/WMSE_Logo_PNG.webp",
+            "logo_3": "shopify://shop_images/WDJT_CBS_58_flat_logo.svg",
+            "logo_4": "shopify://shop_images/travel-wisonsin-logo.png",
+            "logo_5": "shopify://shop_images/TMJ_4_2020_gradient_svg.png",
+            "logo_6": "shopify://shop_images/craft-brewing-business-logo-300x151_1.png",
+            "logo_7": "shopify://shop_images/Urban_Milwaukee_logo.png",
+            "logo_8": "shopify://shop_images/Untitled_design_55.png",
+            "logo_9": "shopify://shop_images/WISN-TV_logo_2022_svg.png"
+          },
           "blocks": {}
         }
       },

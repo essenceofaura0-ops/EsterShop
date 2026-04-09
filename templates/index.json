@@ -286,45 +286,23 @@
     },
     "17757653875bfc6b6a": {
       "type": "_blocks",
+      "settings": {}
+    },
+    "177576629596932b57": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17757665518fb66960": {
+      "type": "_blocks",
       "blocks": {
-        "ai_gen_block_c370afb_n8iCKR": {
-          "type": "ai_gen_block_c370afb",
-          "settings": {
-            "headline": "AS SEEN ON",
-            "headline_size": 64,
-            "headline_color": "#9b59b6",
-            "headline_glow": 0,
-            "headline_glow_color": "#D4AF37",
-            "headline_spacing": 20,
-            "subheadline": "Granny's Been Around",
-            "subheadline_size": 18,
-            "subheadline_color": "#ffffff",
-            "subheadline_spacing": 4,
-            "header_spacing": 40,
-            "show_divider": true,
-            "divider_color": "#D4AF37",
-            "divider_width": 150,
-            "divider_thickness": 2,
-            "divider_margin": 40,
-            "gradient_color_1": "#1A1A2E",
-            "gradient_color_2": "#2a1f3d",
-            "section_padding_top": 40,
-            "section_padding_bottom": 40,
-            "container_width": 1400,
-            "logo_height": 80,
-            "logo_max_width": 180,
-            "logo_spacing": 60,
-            "logo_padding": 20,
-            "logo_grayscale": 100,
-            "logo_opacity": 75,
-            "logo_hover_brightness": 110,
-            "scroll_speed": 40
-          },
+        "ai_gen_block_cc4aeee_GjHW3m": {
+          "type": "ai_gen_block_cc4aeee",
+          "settings": {},
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_c370afb_n8iCKR"
+        "ai_gen_block_cc4aeee_GjHW3m"
       ],
       "settings": {}
     }
@@ -339,6 +317,8 @@
     "multicolumn",
     "17757601391ab7aae1",
     "1775765304bcd87362",
-    "17757653875bfc6b6a"
+    "17757653875bfc6b6a",
+    "177576629596932b57",
+    "17757665518fb66960"
   ]
 }

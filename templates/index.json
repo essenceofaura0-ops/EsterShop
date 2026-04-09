@@ -9,6 +9,33 @@
  */
 {
   "sections": {
+    "17757605200e156539": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_6d10818_YNq7zn": {
+          "type": "ai_gen_block_6d10818",
+          "settings": {
+            "logo_text": "Ester Flonaze",
+            "logo_size": 32,
+            "nav_font_size": 13,
+            "nav_gap": 40,
+            "nav_link_spacing": 30,
+            "icon_size": 22,
+            "icon_spacing": 20,
+            "max_width": 1400,
+            "header_padding": 20,
+            "side_padding": 30,
+            "gold_line_height": 3,
+            "pulse_speed": 3
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_6d10818_YNq7zn"
+      ],
+      "settings": {}
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -63,14 +90,14 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Talk about your brand",
+            "heading": "Meet Your Favorite Glamma",
             "heading_size": "h1"
           }
         },
         "text": {
           "type": "text",
           "settings": {
-            "text": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+            "text": "<p>Ester Flonaze is Milwaukee’s fiercest grandmother <br/>From bingo halls to bar stages, she brings the sass, the chaos, and just enough love to keep you coming back.</p>"
           }
         }
       },
@@ -225,30 +252,61 @@
       "type": "_blocks",
       "settings": {}
     },
-    "17757605200e156539": {
+    "17757610839196273d": {
       "type": "_blocks",
       "blocks": {
-        "ai_gen_block_6d10818_YNq7zn": {
-          "type": "ai_gen_block_6d10818",
+        "ai_gen_block_982ddd3_BkUb79": {
+          "type": "ai_gen_block_982ddd3",
           "settings": {
-            "logo_text": "Ester Flonaze",
-            "logo_size": 32,
-            "nav_font_size": 13,
-            "nav_gap": 40,
-            "nav_link_spacing": 30,
-            "icon_size": 22,
-            "icon_spacing": 20,
-            "max_width": 1400,
-            "header_padding": 20,
-            "side_padding": 30,
-            "gold_line_height": 3,
-            "pulse_speed": 3
+            "heading": "Meet Your Favorite Glamma",
+            "heading_size": 48,
+            "mobile_heading_size": 32,
+            "heading_color": "#1a1a1a",
+            "divider_width": 150,
+            "divider_height": 2,
+            "divider_color": "#D4AF37",
+            "divider_glow": 8,
+            "image": "shopify://shop_images/Screenshot_2026-04-09_at_2.08.11_PM.png",
+            "image_size": 250,
+            "mobile_image_size": 180,
+            "image_border_width": 3,
+            "image_border_color": "#D4AF37",
+            "image_shadow_vertical": 8,
+            "image_shadow_blur": 16,
+            "image_shadow_opacity": 0.2,
+            "placeholder_color_1": "#f5e6d3",
+            "placeholder_color_2": "#d4c5b0",
+            "body_text": "<p>Meet Ester Flonaze, Milwaukee's fiercest grandmother, bringing sass and chaos to every stage. With a wig as tall as her personality and heels sharper than her wit, Ester serves glamour with a side of mischief. She's not your average granny.. she's a drag icon who turns heads and breaks hearts.</p><p>From bingo to the runway, Ester commands attention. Whether she's serving looks or serving tea, one thing's for sure: Ester Flonaze is unforgettable.</p>",
+            "body_size": 16,
+            "mobile_body_size": 14,
+            "body_color": "#333333",
+            "paragraph_spacing": 20,
+            "highlight_purple": "#C15CCF",
+            "highlight_gold": "#D4AF37",
+            "signature_text": "Not for the faint of heart.",
+            "signature_size": 14,
+            "mobile_signature_size": 12,
+            "signature_color": "#D4AF37",
+            "signature_alignment": "left",
+            "signature_spacing": 16,
+            "container_bg_color": "#FFF8F0",
+            "border_radius": 20,
+            "shadow_vertical": 10,
+            "shadow_blur": 30,
+            "shadow_opacity": 0.1,
+            "padding_vertical": 60,
+            "padding_horizontal": 60,
+            "mobile_padding_vertical": 30,
+            "mobile_padding_horizontal": 25,
+            "content_gap": 50,
+            "mobile_content_gap": 30,
+            "desktop_width_percent": 100
           },
           "blocks": {}
         }
       },
       "block_order": [
-        "ai_gen_block_6d10818_YNq7zn"
+        "ai_gen_block_982ddd3_BkUb79"
       ],
       "settings": {}
     }
@@ -261,6 +319,7 @@
     "collage",
     "video",
     "multicolumn",
-    "17757601391ab7aae1"
+    "17757601391ab7aae1",
+    "17757610839196273d"
   ]
 }

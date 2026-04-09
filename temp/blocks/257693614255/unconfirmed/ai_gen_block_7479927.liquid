@@ -1,6 +1,500 @@
+{% doc %}
+  @prompt
+    Create a fully functional, custom header and navigation menu section for a Shopify store called "Ester Flonaze" — a bold, theatrical drag performer brand. This must replace the existing header and function as the real site navigation.
+    
+    FUNCTIONAL REQUIREMENTS:
+    - Pull navigation links from the store's "main-menu" link list (use Liquid: linklists.main-menu.links)
+    - Include a mobile-responsive hamburger menu that toggles open/closed
+    - Vertically center logo text and nav items
+    - Logo text should read "Ester Flonaze" and link to the homepage
+    
+    BACKGROUND:
+    - Use a subtle gradient background: from #1A1A2E (Deep Midnight) to a slightly purple-tinted tone like #1E1535 — deep and rich, not loud
+    - Add a very soft shimmer/glitter texture overlay using CSS (radial gradients or pseudo-elements with low opacity gold/purple dots) — think drag stage lighting, extremely subtle
+    
+    GOLD ACCENT LINE:
+    - Add a thin (2–3px) gold (#D4AF37) line along the bottom of the header
+    - Give it a soft glowing animation (pulsing glow using CSS keyframes) — luxury feel, not Vegas flashy
+    
+    TYPOGRAPHY:
+    - Import "Playfair Display" Bold from Google Fonts for the logo
+    - Import "Raleway" or "Montserrat" for nav items
+    - Slight letter spacing on nav items (0.08em)
+    - Logo slightly larger and prominent
+    
+    NAVIGATION HOVER EFFECTS:
+    - Default nav text color: #C15CCF (vibrant purple)
+    - On hover: shift to #D4AF37 (gold) with a soft purple/pink text-shadow glow
+    - Smooth 150–200ms transition
+    - Animated underline that slides in from left on hover
+    
+    MOBILE:
+    - Hamburger icon in gold (#D4AF37)
+    - Mobile menu drops down with same dark gradient background
+    - Mobile nav links styled consistently
+    
+    VIBE: Drag show lighting, Catholic glam meets nightlife, bingo hall chaos but elevated — campy but clean. Premium, flashy, and alive. Avoid flat styling, low contrast, or tacky neon.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
+{% style %}
+  .ester-header-{{ ai_gen_id }} {
+    display: block;
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #1A1A2E 0%, #1E1535 100%);
+    border-bottom: {{ block.settings.gold_line_thickness }}px solid #D4AF37;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .ester-header-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      radial-gradient(circle at 60% 70%, rgba(193, 92, 207, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.02) 1px, transparent 1px),
+      radial-gradient(circle at 40% 80%, rgba(193, 92, 207, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px, 60px 60px, 70px 70px;
+    background-position: 0 0, 20px 20px, 40px 10px, 10px 40px;
+    pointer-events: none;
+    opacity: {{ block.settings.shimmer_opacity | divided_by: 100.0 }};
+  }
+
+  .ester-header-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    padding: {{ block.settings.header_padding }}px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ester-logo-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: {{ block.settings.logo_size }}px;
+    color: {{ block.settings.logo_color }};
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+    transition: all 0.3s ease;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .ester-logo-{{ ai_gen_id }}:hover {
+    color: #D4AF37;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+  }
+
+  .ester-nav-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.nav_spacing }}px;
+  }
+
+  .ester-nav-{{ ai_gen_id }} a {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: {{ block.settings.nav_font_size }}px;
+    color: {{ block.settings.nav_color }};
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+    padding: 8px 0;
+    transition: all 0.2s ease;
+  }
+
+  .ester-nav-{{ ai_gen_id }} a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #D4AF37 0%, #C15CCF 100%);
+    transition: width 0.3s ease;
+  }
+
+  .ester-nav-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.nav_hover_color }};
+    text-shadow: 0 0 12px rgba(193, 92, 207, 0.6), 0 0 20px rgba(212, 175, 55, 0.4);
+  }
+
+  .ester-nav-{{ ai_gen_id }} a:hover::after {
+    width: 100%;
+  }
+
+  .ester-hamburger-{{ ai_gen_id }} {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1001;
+  }
+
+  .ester-hamburger-{{ ai_gen_id }} span {
+    width: 28px;
+    height: 3px;
+    background-color: #D4AF37;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+    box-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+  }
+
+  .ester-hamburger-{{ ai_gen_id }}.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+  }
+
+  .ester-hamburger-{{ ai_gen_id }}.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .ester-hamburger-{{ ai_gen_id }}.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -8px);
+  }
+
+  .ester-mobile-nav-{{ ai_gen_id }} {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #1A1A2E 0%, #1E1535 100%);
+    z-index: 1000;
+    padding: 100px 30px 30px;
+    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .ester-mobile-nav-{{ ai_gen_id }}.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .ester-mobile-nav-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      radial-gradient(circle at 60% 70%, rgba(193, 92, 207, 0.04) 1px, transparent 1px);
+    background-size: 50px 50px, 80px 80px;
+    pointer-events: none;
+    opacity: {{ block.settings.shimmer_opacity | divided_by: 100.0 }};
+  }
+
+  .ester-mobile-nav-{{ ai_gen_id }} a {
+    display: block;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: {{ block.settings.nav_color }};
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ester-mobile-nav-{{ ai_gen_id }} a:hover {
+    color: {{ block.settings.nav_hover_color }};
+    text-shadow: 0 0 12px rgba(193, 92, 207, 0.6);
+    padding-left: 10px;
+  }
+
+  @keyframes ester-gold-glow-{{ ai_gen_id }} {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), 0 0 16px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 16px rgba(212, 175, 55, 0.6), 0 0 24px rgba(212, 175, 55, 0.3);
+    }
+  }
+
+  .ester-header-{{ ai_gen_id }} {
+    border-bottom-color: #D4AF37;
+    animation: ester-gold-glow-{{ ai_gen_id }} {{ block.settings.glow_speed }}s ease-in-out infinite;
+  }
+
+  @media screen and (max-width: 990px) {
+    .ester-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ester-hamburger-{{ ai_gen_id }} {
+      display: flex;
+    }
+
+    .ester-logo-{{ ai_gen_id }} {
+      font-size: {{ block.settings.logo_size | times: 0.8 }}px;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ester-header-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.header_padding | times: 0.7 }}px 15px;
+    }
+
+    .ester-logo-{{ ai_gen_id }} {
+      font-size: {{ block.settings.logo_size | times: 0.65 }}px;
+    }
+  }
+{% endstyle %}
+
+<ester-header-{{ ai_gen_id }} class="ester-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ester-header-container-{{ ai_gen_id }}">
+    <a href="/" class="ester-logo-{{ ai_gen_id }}">{{ block.settings.logo_text }}</a>
+
+    <nav class="ester-nav-{{ ai_gen_id }}">
+      {% if linklists.main-menu.links.size > 0 %}
+        {% for link in linklists.main-menu.links %}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {% endfor %}
+      {% else %}
+        <a href="/collections">Shop</a>
+        <a href="/pages/about">About</a>
+        <a href="/pages/contact">Contact</a>
+      {% endif %}
+    </nav>
+
+    <button class="ester-hamburger-{{ ai_gen_id }}" aria-label="Toggle mobile menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="ester-mobile-nav-{{ ai_gen_id }}">
+    {% if linklists.main-menu.links.size > 0 %}
+      {% for link in linklists.main-menu.links %}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {% endfor %}
+    {% else %}
+      <a href="/collections">Shop</a>
+      <a href="/pages/about">About</a>
+      <a href="/pages/contact">Contact</a>
+    {% endif %}
+  </div>
+</ester-header-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EsterHeader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.hamburger = this.querySelector('.ester-hamburger-{{ ai_gen_id }}');
+        this.mobileNav = this.querySelector('.ester-mobile-nav-{{ ai_gen_id }}');
+        this.mobileLinks = this.mobileNav.querySelectorAll('a');
+        
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.hamburger.addEventListener('click', () => this.toggleMobileMenu());
+        
+        this.mobileLinks.forEach(link => {
+          link.addEventListener('click', () => this.closeMobileMenu());
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.mobileNav.classList.contains('active')) {
+            this.closeMobileMenu();
+          }
+        });
+      }
+
+      toggleMobileMenu() {
+        const isActive = this.mobileNav.classList.contains('active');
+        
+        if (isActive) {
+          this.closeMobileMenu();
+        } else {
+          this.openMobileMenu();
+        }
+      }
+
+      openMobileMenu() {
+        this.hamburger.classList.add('active');
+        this.mobileNav.classList.add('active');
+        this.hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      closeMobileMenu() {
+        this.hamburger.classList.remove('active');
+        this.mobileNav.classList.remove('active');
+        this.hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    }
+
+    customElements.define('ester-header-{{ ai_gen_id }}', EsterHeader{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Ester Flonaze header",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Ester Flonaze"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "label": "Logo size",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "logo_color",
+      "label": "Logo color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "label": "Font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "nav_spacing",
+      "label": "Link spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 35
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Link color",
+      "default": "#C15CCF"
+    },
+    {
+      "type": "color",
+      "id": "nav_hover_color",
+      "label": "Link hover color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "header_padding",
+      "label": "Vertical padding",
+      "min": 15,
+      "max": 40,
+      "step": 5,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Gold accent line"
+    },
+    {
+      "type": "range",
+      "id": "gold_line_thickness",
+      "label": "Line thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "glow_speed",
+      "label": "Glow animation speed",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "s",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Shimmer effect"
+    },
+    {
+      "type": "range",
+      "id": "shimmer_opacity",
+      "label": "Shimmer intensity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ester Flonaze header"
+    }
+  ]
+}
 {% endschema %}

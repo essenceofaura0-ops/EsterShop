@@ -98,7 +98,7 @@
             "divider_height": 2,
             "divider_color": "#D4AF37",
             "divider_glow": 8,
-            "image": "shopify://shop_images/Screenshot_2026-04-09_at_2.08.11_PM.png",
+            "image": "shopify://shop_images/Untitled_design_52.png",
             "image_size": 250,
             "mobile_image_size": 180,
             "image_border_width": 3,
@@ -141,36 +141,6 @@
         "ai_gen_block_982ddd3_BkUb79"
       ],
       "settings": {}
-    },
-    "rich_text": {
-      "type": "rich-text",
-      "blocks": {
-        "heading": {
-          "type": "heading",
-          "settings": {
-            "heading": "Meet Your Favorite Glamma",
-            "heading_size": "h1"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Ester Flonaze is Milwaukee’s fiercest grandmother <br/>From bingo halls to bar stages, she brings the sass, the chaos, and just enough love to keep you coming back.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "heading",
-        "text"
-      ],
-      "settings": {
-        "desktop_content_position": "center",
-        "content_alignment": "center",
-        "color_scheme": "scheme-1",
-        "full_width": true,
-        "padding_top": 40,
-        "padding_bottom": 0
-      }
     },
     "featured_collection": {
       "type": "featured-collection",
@@ -315,7 +285,6 @@
     "17757605200e156539",
     "image_banner",
     "17757610839196273d",
-    "rich_text",
     "featured_collection",
     "collage",
     "video",

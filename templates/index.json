@@ -96,13 +96,13 @@
             "heading_color": "#1a1a1a",
             "divider_width": 150,
             "divider_height": 2,
-            "divider_color": "#D4AF37",
+            "divider_color": "#d4af37",
             "divider_glow": 8,
             "image": "shopify://shop_images/Untitled_design_52.png",
             "image_size": 250,
             "mobile_image_size": 180,
             "image_border_width": 3,
-            "image_border_color": "#D4AF37",
+            "image_border_color": "#d4af37",
             "image_shadow_vertical": 8,
             "image_shadow_blur": 16,
             "image_shadow_opacity": 0.2,
@@ -113,15 +113,15 @@
             "mobile_body_size": 14,
             "body_color": "#333333",
             "paragraph_spacing": 20,
-            "highlight_purple": "#C15CCF",
-            "highlight_gold": "#D4AF37",
+            "highlight_purple": "#c15ccf",
+            "highlight_gold": "#d4af37",
             "signature_text": "Not for the faint of heart.",
             "signature_size": 14,
             "mobile_signature_size": 12,
-            "signature_color": "#D4AF37",
+            "signature_color": "#d4af37",
             "signature_alignment": "left",
             "signature_spacing": 16,
-            "container_bg_color": "#FFF8F0",
+            "container_bg_color": "#fff8f0",
             "border_radius": 20,
             "shadow_vertical": 10,
             "shadow_blur": 30,
@@ -279,6 +279,54 @@
     "17757601391ab7aae1": {
       "type": "_blocks",
       "settings": {}
+    },
+    "1775765304bcd87362": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "17757653875bfc6b6a": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_c370afb_n8iCKR": {
+          "type": "ai_gen_block_c370afb",
+          "settings": {
+            "headline": "AS SEEN ON",
+            "headline_size": 64,
+            "headline_color": "#9b59b6",
+            "headline_glow": 0,
+            "headline_glow_color": "#D4AF37",
+            "headline_spacing": 20,
+            "subheadline": "Granny's Been Around",
+            "subheadline_size": 18,
+            "subheadline_color": "#ffffff",
+            "subheadline_spacing": 4,
+            "header_spacing": 40,
+            "show_divider": true,
+            "divider_color": "#D4AF37",
+            "divider_width": 150,
+            "divider_thickness": 2,
+            "divider_margin": 40,
+            "gradient_color_1": "#1A1A2E",
+            "gradient_color_2": "#2a1f3d",
+            "section_padding_top": 40,
+            "section_padding_bottom": 40,
+            "container_width": 1400,
+            "logo_height": 80,
+            "logo_max_width": 180,
+            "logo_spacing": 60,
+            "logo_padding": 20,
+            "logo_grayscale": 100,
+            "logo_opacity": 75,
+            "logo_hover_brightness": 110,
+            "scroll_speed": 40
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_c370afb_n8iCKR"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -289,6 +337,8 @@
     "collage",
     "video",
     "multicolumn",
-    "17757601391ab7aae1"
+    "17757601391ab7aae1",
+    "1775765304bcd87362",
+    "17757653875bfc6b6a"
   ]
 }

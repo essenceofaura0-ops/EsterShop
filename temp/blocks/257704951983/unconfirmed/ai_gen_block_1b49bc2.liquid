@@ -1,6 +1,596 @@
+{% doc %}
+  @prompt
+    Redesign the existing Image Banner (hero) section for a drag brand called Ester Flonaze. Keep the existing layout structure (image background + centered text + button) — do NOT remove any functionality. Only enhance animation, typography, and styling to make it feel glamorous, theatrical, and eye-catching like a drag show intro moment.
+    
+    TEXT ANIMATION:
+    - Headline ("Welcome, Darlings"): smooth entrance animation — fade in with slight upward movement and a very subtle shimmer/glow effect. Optional: a light glitter shimmer pass across the text (not constant, just on load). Duration 0.8–1.2s, slight delay after page load.
+    - Subheadline: fades in slightly after the headline with staggered timing. No heavy effects — keep it clean.
+    
+    TYPOGRAPHY:
+    - Use Playfair Display for the headline, slightly larger size for impact
+    - Add slight letter spacing
+    - Subtle glow or soft text-shadow for readability
+    
+    BUTTON REDESIGN:
+    - Full gold button: background #D4AF37 (or gold gradient), dark text (#1A1A2E)
+    - Font: Oswald, uppercase, slight letter spacing
+    - Subtle gold gradient shine and slight inner glow/highlight
+    - Rounded corners (not pill-shaped)
+    - Hover: slight scale up (1.03–1.05), increased glow, optional shimmer sweep
+    - Optional: very subtle sparkle/glint on hover only (not constant)
+    
+    BACKGROUND:
+    - Very subtle purple gradient overlay or vignette to help text pop without changing the background image
+    
+    MOBILE:
+    - Animations still work but slightly reduced
+    - Button remains large and tappable
+    - Text stays readable
+    
+    VIBE: Drag show intro — glam, confident, attention-grabbing but still premium. Shopify Dawn-compatible, smooth CSS animations, fully responsive.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Oswald:wght@500;600&display=swap');
+
+  .ai-hero-banner-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ block.settings.banner_height_desktop }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .ai-hero-banner__background-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .ai-hero-banner__background-{{ ai_gen_id }} img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: {{ block.settings.image_position }};
+  }
+
+  .ai-hero-banner__overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    {% if block.settings.enable_gradient_overlay %}
+      background: radial-gradient(ellipse at center, 
+        rgba(88, 28, 135, {{ block.settings.overlay_opacity | divided_by: 100.0 }}) 0%, 
+        rgba(59, 7, 100, {{ block.settings.overlay_opacity | times: 1.2 | divided_by: 100.0 }}) 100%);
+    {% else %}
+      background-color: rgba(0, 0, 0, {{ block.settings.overlay_opacity | divided_by: 100.0 }});
+    {% endif %}
+  }
+
+  .ai-hero-banner__vignette-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.3) 100%);
+    pointer-events: none;
+  }
+
+  .ai-hero-banner__content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 4;
+    text-align: center;
+    padding: 40px 20px;
+    max-width: {{ block.settings.content_max_width }}px;
+    width: 100%;
+  }
+
+  .ai-hero-banner__heading-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: {{ block.settings.heading_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 20px;
+    letter-spacing: {{ block.settings.heading_letter_spacing }}px;
+    text-shadow: 
+      0 0 20px rgba(255, 255, 255, 0.3),
+      0 2px 4px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(30px);
+    animation: ai-hero-heading-entrance-{{ ai_gen_id }} 1s ease-out {{ block.settings.heading_delay | times: 0.1 }}s forwards;
+  }
+
+  @keyframes ai-hero-heading-entrance-{{ ai_gen_id }} {
+    0% {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  {% if block.settings.enable_shimmer %}
+    .ai-hero-banner__heading-{{ ai_gen_id }}::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.4) 50%,
+        transparent 100%
+      );
+      animation: ai-hero-shimmer-{{ ai_gen_id }} 2s ease-in-out {{ block.settings.heading_delay | times: 0.1 | plus: 0.5 }}s 1;
+    }
+
+    @keyframes ai-hero-shimmer-{{ ai_gen_id }} {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+  {% endif %}
+
+  .ai-hero-banner__subheading-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheading_size }}px;
+    color: {{ block.settings.subheading_color }};
+    margin: 0 0 30px;
+    line-height: 1.5;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: ai-hero-subheading-entrance-{{ ai_gen_id }} 0.8s ease-out {{ block.settings.subheading_delay | times: 0.1 }}s forwards;
+  }
+
+  @keyframes ai-hero-subheading-entrance-{{ ai_gen_id }} {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-hero-banner__button-{{ ai_gen_id }} {
+    display: inline-block;
+    padding: {{ block.settings.button_padding_vertical }}px {{ block.settings.button_padding_horizontal }}px;
+    background: {{ block.settings.button_background }};
+    {% if block.settings.enable_button_gradient %}
+      background: linear-gradient(135deg, #D4AF37 0%, #F4D03F 50%, #D4AF37 100%);
+      background-size: 200% 200%;
+    {% endif %}
+    color: {{ block.settings.button_text_color }};
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ block.settings.button_font_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.button_letter_spacing | times: 0.1 }}px;
+    text-decoration: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+      0 4px 15px rgba(212, 175, 55, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: ai-hero-button-entrance-{{ ai_gen_id }} 0.8s ease-out {{ block.settings.button_delay | times: 0.1 }}s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  @keyframes ai-hero-button-entrance-{{ ai_gen_id }} {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ai-hero-banner__button-{{ ai_gen_id }}:hover {
+    transform: scale({{ block.settings.button_hover_scale | divided_by: 100.0 }});
+    box-shadow: 
+      0 6px 25px rgba(212, 175, 55, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    {% if block.settings.enable_button_gradient %}
+      background-position: 100% 0;
+    {% endif %}
+  }
+
+  {% if block.settings.enable_button_sparkle %}
+    .ai-hero-banner__button-{{ ai_gen_id }}::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent 30%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 70%
+      );
+      transform: translateX(-100%) translateY(-100%) rotate(45deg);
+      transition: transform 0.6s ease;
+    }
+
+    .ai-hero-banner__button-{{ ai_gen_id }}:hover::before {
+      transform: translateX(100%) translateY(100%) rotate(45deg);
+    }
+  {% endif %}
+
+  @media screen and (max-width: 749px) {
+    .ai-hero-banner-{{ ai_gen_id }} {
+      min-height: {{ block.settings.banner_height_mobile }}px;
+    }
+
+    .ai-hero-banner__heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.heading_size | times: 0.6 }}px;
+      letter-spacing: {{ block.settings.heading_letter_spacing | times: 0.5 }}px;
+      animation-duration: 0.8s;
+    }
+
+    .ai-hero-banner__subheading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subheading_size | times: 0.8 }}px;
+      animation-duration: 0.6s;
+    }
+
+    .ai-hero-banner__button-{{ ai_gen_id }} {
+      font-size: {{ block.settings.button_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.button_padding_vertical | times: 0.9 }}px {{ block.settings.button_padding_horizontal | times: 0.9 }}px;
+      animation-duration: 0.6s;
+    }
+
+    .ai-hero-banner__content-{{ ai_gen_id }} {
+      padding: 30px 15px;
+    }
+  }
+{% endstyle %}
+
+<div class="ai-hero-banner-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-hero-banner__background-{{ ai_gen_id }}">
+    {% if block.settings.image %}
+      <img
+        src="{{ block.settings.image | image_url: width: 2000 }}"
+        alt="{{ block.settings.image.alt | escape }}"
+        loading="lazy"
+        width="{{ block.settings.image.width }}"
+        height="{{ block.settings.image.height }}"
+      >
+    {% else %}
+      <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+    {% endif %}
+  </div>
+
+  <div class="ai-hero-banner__overlay-{{ ai_gen_id }}"></div>
+  <div class="ai-hero-banner__vignette-{{ ai_gen_id }}"></div>
+
+  <div class="ai-hero-banner__content-{{ ai_gen_id }}">
+    {% if block.settings.heading != blank %}
+      <h1 class="ai-hero-banner__heading-{{ ai_gen_id }}">
+        {{ block.settings.heading }}
+      </h1>
+    {% endif %}
+
+    {% if block.settings.subheading != blank %}
+      <div class="ai-hero-banner__subheading-{{ ai_gen_id }}">
+        {{ block.settings.subheading }}
+      </div>
+    {% endif %}
+
+    {% if block.settings.button_text != blank and block.settings.button_link != blank %}
+      <a href="{{ block.settings.button_link }}" class="ai-hero-banner__button-{{ ai_gen_id }}">
+        {{ block.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
+</div>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Ester Flonaze hero",
+  "tag": null,
+  "class": "ester-flonaze-hero-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "center", "label": "Center" },
+        { "value": "top", "label": "Top" },
+        { "value": "bottom", "label": "Bottom" },
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "banner_height_desktop",
+      "label": "Desktop height",
+      "min": 300,
+      "max": 900,
+      "step": 50,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "banner_height_mobile",
+      "label": "Mobile height",
+      "min": 200,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_gradient_overlay",
+      "label": "Enable purple gradient overlay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome, Darlings"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 30,
+      "max": 120,
+      "step": 5,
+      "unit": "px",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "heading_letter_spacing",
+      "label": "Heading letter spacing",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "heading_delay",
+      "label": "Heading animation delay (0.1s)",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_shimmer",
+      "label": "Enable shimmer effect",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "<p>Step into glamour and confidence</p>"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 14,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "range",
+      "id": "subheading_delay",
+      "label": "Subheading animation delay (0.1s)",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "button_background",
+      "label": "Button background",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button_gradient",
+      "label": "Enable gold gradient",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#1A1A2E"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_letter_spacing",
+      "label": "Button letter spacing (0.1px)",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "button_padding_vertical",
+      "label": "Button vertical padding",
+      "min": 10,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "button_padding_horizontal",
+      "label": "Button horizontal padding",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "button_hover_scale",
+      "label": "Button hover scale",
+      "min": 100,
+      "max": 110,
+      "step": 1,
+      "unit": "%",
+      "default": 104
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_button_sparkle",
+      "label": "Enable sparkle on hover",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "button_delay",
+      "label": "Button animation delay (0.1s)",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Content max width",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "default": 800
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ester Flonaze hero"
+    }
+  ]
+}
 {% endschema %}

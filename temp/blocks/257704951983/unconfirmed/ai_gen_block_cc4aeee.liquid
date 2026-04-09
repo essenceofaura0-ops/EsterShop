@@ -1,6 +1,333 @@
+{% doc %}
+  @prompt
+    Create an "As Seen On" section with EXACT specifications - do not deviate:
+    
+    STRUCTURE (top to bottom):
+    1. Small label: "AS SEEN ON" - uppercase, purple color (#C15CCF), small font, slight letter spacing
+    2. Main headline: "Granny's Been Around" - Playfair Display serif font, cream/white color, centered, subtle soft glow effect
+    3. Logo row: exactly 9 logo image slots, all editable in Shopify Theme Editor as image blocks
+    
+    DESIGN:
+    - Background: dark purple gradient #1A1A2E to #2a1f3d, smooth blend
+    - Logos: grayscale at 70-80% opacity by default, on hover fade to full color with slight brightness increase
+    - Logos in single horizontal auto-scrolling row, seamless infinite loop, smooth movement, pauses on hover
+    
+    MOBILE: logos become horizontal swipe carousel, do NOT stack into multiple rows
+    
+    ACCENTS: subtle glow behind headline, very subtle grain/sparkle texture in background
+    
+    CONSTRAINTS: exactly 9 logo slots as image blocks editable in theme editor, even spacing, uniform logo sizes, no extra elements, keep section compact/small height
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+  .ai-as-seen-on-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background: linear-gradient(180deg, #1A1A2E 0%, #2a1f3d 100%);
+    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-as-seen-on-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(193, 92, 207, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(193, 92, 207, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .ai-as-seen-on-container-{{ ai_gen_id }} {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-as-seen-on-label-{{ ai_gen_id }} {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #C15CCF;
+    text-transform: uppercase;
+    margin: 0 0 12px 0;
+    font-weight: 600;
+  }
+
+  .ai-as-seen-on-headline-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #F5F5DC;
+    margin: 0 0 30px 0;
+    font-weight: 400;
+    text-shadow: 0 0 20px rgba(193, 92, 207, 0.3);
+    line-height: 1.2;
+  }
+
+  .ai-as-seen-on-logos-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .ai-as-seen-on-logos-track-{{ ai_gen_id }} {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    width: max-content;
+  }
+
+  .ai-as-seen-on-logos-track-{{ ai_gen_id }}.scrolling {
+    animation: ai-scroll-{{ ai_gen_id }} 30s linear infinite;
+  }
+
+  .ai-as-seen-on-logos-track-{{ ai_gen_id }}.paused {
+    animation-play-state: paused;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 120px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }} img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(1.2);
+    opacity: 0.75;
+    transition: all 0.3s ease;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }}:hover img {
+    filter: grayscale(0%) brightness(1.1);
+    opacity: 1;
+  }
+
+  .ai-as-seen-on-logo-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .ai-as-seen-on-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0.3;
+  }
+
+  @keyframes ai-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-as-seen-on-{{ ai_gen_id }} {
+      padding: 30px 15px;
+    }
+
+    .ai-as-seen-on-headline-{{ ai_gen_id }} {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    .ai-as-seen-on-logos-wrapper-{{ ai_gen_id }} {
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .ai-as-seen-on-logos-wrapper-{{ ai_gen_id }}::-webkit-scrollbar {
+      display: none;
+    }
+
+    .ai-as-seen-on-logos-track-{{ ai_gen_id }} {
+      animation: none !important;
+      gap: 40px;
+      padding: 0 20px;
+    }
+
+    .ai-as-seen-on-logo-item-{{ ai_gen_id }} {
+      width: 100px;
+      height: 50px;
+    }
+  }
+{% endstyle %}
+
+<as-seen-on-{{ ai_gen_id }} class="ai-as-seen-on-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-as-seen-on-container-{{ ai_gen_id }}">
+    <div class="ai-as-seen-on-label-{{ ai_gen_id }}">AS SEEN ON</div>
+    <h2 class="ai-as-seen-on-headline-{{ ai_gen_id }}">Granny's Been Around</h2>
+    
+    <div class="ai-as-seen-on-logos-wrapper-{{ ai_gen_id }}">
+      <div class="ai-as-seen-on-logos-track-{{ ai_gen_id }}" data-track>
+        {% for i in (1..9) %}
+          {% assign logo_key = 'logo_' | append: i %}
+          {% assign logo = block.settings[logo_key] %}
+          <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+            {% if logo %}
+              <img
+                src="{{ logo | image_url: width: 240 }}"
+                alt="Logo {{ i }}"
+                loading="lazy"
+                width="120"
+                height="60"
+              >
+            {% else %}
+              <div class="ai-as-seen-on-logo-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% for i in (1..9) %}
+          {% assign logo_key = 'logo_' | append: i %}
+          {% assign logo = block.settings[logo_key] %}
+          <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+            {% if logo %}
+              <img
+                src="{{ logo | image_url: width: 240 }}"
+                alt="Logo {{ i }}"
+                loading="lazy"
+                width="120"
+                height="60"
+              >
+            {% else %}
+              <div class="ai-as-seen-on-logo-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</as-seen-on-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AsSeenOn{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.track = null;
+        this.isDesktop = window.innerWidth > 749;
+      }
+
+      connectedCallback() {
+        this.track = this.querySelector('[data-track]');
+        
+        if (this.isDesktop && this.track) {
+          this.track.classList.add('scrolling');
+          
+          this.track.addEventListener('mouseenter', () => {
+            this.track.classList.add('paused');
+          });
+          
+          this.track.addEventListener('mouseleave', () => {
+            this.track.classList.remove('paused');
+          });
+        }
+
+        window.addEventListener('resize', () => {
+          const wasDesktop = this.isDesktop;
+          this.isDesktop = window.innerWidth > 749;
+          
+          if (wasDesktop !== this.isDesktop) {
+            if (this.isDesktop) {
+              this.track.classList.add('scrolling');
+            } else {
+              this.track.classList.remove('scrolling', 'paused');
+            }
+          }
+        });
+      }
+    }
+
+    customElements.define('as-seen-on-{{ ai_gen_id }}', AsSeenOn{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "As seen on",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo images"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_3",
+      "label": "Logo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_4",
+      "label": "Logo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_5",
+      "label": "Logo 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_6",
+      "label": "Logo 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_7",
+      "label": "Logo 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_8",
+      "label": "Logo 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_9",
+      "label": "Logo 9"
+    }
+  ],
+  "presets": [
+    {
+      "name": "As seen on"
+    }
+  ]
+}
 {% endschema %}

@@ -1,6 +1,667 @@
+{% doc %}
+  @prompt
+    Create a homepage "As Seen On" section for a drag brand called Ester Flonaze.
+    
+    REQUIREMENTS:
+    - Bold headline: "Granny's Been Around"
+    - Subheadline: "As Seen On"
+    - Rotating/scrolling marquee row of logos
+    - Logos added as editable image blocks in Shopify Theme Editor
+    - Fully responsive (carousel or scroll on mobile)
+    
+    DESIGN DIRECTION:
+    Overall Vibe: Glamorous, slightly gaudy in a tasteful drag way, eye-catching but clean. Feels like credibility + personality combined.
+    
+    Background: Deep purple gradient (#1A1A2E → #2a1f3d) with subtle depth — no flat backgrounds.
+    
+    Headline Styling: Bold theatrical font (Playfair Display or similar), large, centered, with subtle gold or purple glow/accent.
+    
+    Subheadline Styling: Smaller than headline, centered, slight letter spacing, clean and elegant, styled "AS SEEN ON" in uppercase with letter spacing.
+    
+    Logo Section (MOST IMPORTANT):
+    - Horizontal scrolling marquee-style infinite loop row of logos
+    - Logos uploaded via editable image blocks in theme editor
+    - Evenly sized and aligned with consistent height
+    - Logos slowly auto-scroll horizontally, loop seamlessly
+    - On hover: pause animation, fade logos from grayscale to full color
+    - Default state: grayscale, 70-80% opacity
+    - Hover state: full color, slight brightness increase
+    
+    Layout:
+    - Headline at top, subheadline below, logos directly under
+    - Everything centered
+    - Generous vertical padding/spacing
+    
+    Accent Details:
+    - Thin gold divider line (#D4AF37) above or below logos
+    - Very subtle sparkle or soft glow effect in background
+    
+    Mobile: logos become horizontal swipe/scroll carousel, smooth animation maintained
+    
+    AVOID: static logo grid, white background, uneven logo sizes, overly flashy animation
+    
+    Make it Dawn-compatible with editable logo image blocks (support at least 9 logo blocks), smooth CSS marquee scrolling animation, fully responsive.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+  .ai-as-seen-on-{{ ai_gen_id }} {
+    display: block;
+    width: 100%;
+    background: linear-gradient(180deg, {{ block.settings.gradient_color_1 }} 0%, {{ block.settings.gradient_color_2 }} 100%);
+    padding: {{ block.settings.section_padding_top }}px 20px {{ block.settings.section_padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ai-as-seen-on-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(138, 43, 226, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .ai-as-seen-on-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.container_width }}px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .ai-as-seen-on-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-as-seen-on-headline-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-size: {{ block.settings.headline_size }}px;
+    font-weight: 700;
+    color: {{ block.settings.headline_color }};
+    margin: 0 0 {{ block.settings.headline_spacing }}px;
+    text-shadow: 0 0 {{ block.settings.headline_glow }}px {{ block.settings.headline_glow_color }};
+    line-height: 1.2;
+  }
+
+  .ai-as-seen-on-subheadline-{{ ai_gen_id }} {
+    font-size: {{ block.settings.subheadline_size }}px;
+    color: {{ block.settings.subheadline_color }};
+    text-transform: uppercase;
+    letter-spacing: {{ block.settings.subheadline_spacing }}px;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .ai-as-seen-on-divider-{{ ai_gen_id }} {
+    width: {{ block.settings.divider_width }}px;
+    height: {{ block.settings.divider_thickness }}px;
+    background: {{ block.settings.divider_color }};
+    margin: {{ block.settings.divider_margin }}px auto;
+    box-shadow: 0 0 10px {{ block.settings.divider_color }};
+  }
+
+  .ai-as-seen-on-marquee-wrapper-{{ ai_gen_id }} {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .ai-as-seen-on-marquee-{{ ai_gen_id }} {
+    display: flex;
+    gap: {{ block.settings.logo_spacing }}px;
+    animation: ai-marquee-scroll-{{ ai_gen_id }} {{ block.settings.scroll_speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  .ai-as-seen-on-marquee-{{ ai_gen_id }}:hover {
+    animation-play-state: paused;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    height: {{ block.settings.logo_height }}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 {{ block.settings.logo_padding }}px;
+    transition: all 0.4s ease;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }} img {
+    max-height: 100%;
+    width: auto;
+    max-width: {{ block.settings.logo_max_width }}px;
+    object-fit: contain;
+    filter: grayscale({{ block.settings.logo_grayscale }}%) opacity({{ block.settings.logo_opacity }}%);
+    transition: filter 0.4s ease, transform 0.4s ease;
+  }
+
+  .ai-as-seen-on-logo-item-{{ ai_gen_id }}:hover img {
+    filter: grayscale(0%) opacity(100%) brightness({{ block.settings.logo_hover_brightness }}%);
+    transform: scale(1.05);
+  }
+
+  .ai-as-seen-on-logo-placeholder-{{ ai_gen_id }} {
+    width: {{ block.settings.logo_max_width }}px;
+    height: {{ block.settings.logo_height }}px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px dashed rgba(255, 255, 255, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .ai-as-seen-on-logo-placeholder-{{ ai_gen_id }} svg {
+    width: 40px;
+    height: 40px;
+    opacity: 0.3;
+  }
+
+  @keyframes ai-marquee-scroll-{{ ai_gen_id }} {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-as-seen-on-headline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.headline_size }}px * 0.6);
+    }
+
+    .ai-as-seen-on-subheadline-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.subheadline_size }}px * 0.8);
+    }
+
+    .ai-as-seen-on-logo-item-{{ ai_gen_id }} {
+      height: calc({{ block.settings.logo_height }}px * 0.7);
+    }
+
+    .ai-as-seen-on-{{ ai_gen_id }} {
+      padding: calc({{ block.settings.section_padding_top }}px * 0.6) 15px calc({{ block.settings.section_padding_bottom }}px * 0.6);
+    }
+  }
+{% endstyle %}
+
+<as-seen-on-{{ ai_gen_id }} class="ai-as-seen-on-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-as-seen-on-container-{{ ai_gen_id }}">
+    <div class="ai-as-seen-on-header-{{ ai_gen_id }}">
+      {% if block.settings.headline != blank %}
+        <h2 class="ai-as-seen-on-headline-{{ ai_gen_id }}">{{ block.settings.headline }}</h2>
+      {% endif %}
+      
+      {% if block.settings.subheadline != blank %}
+        <p class="ai-as-seen-on-subheadline-{{ ai_gen_id }}">{{ block.settings.subheadline }}</p>
+      {% endif %}
+    </div>
+
+    {% if block.settings.show_divider %}
+      <div class="ai-as-seen-on-divider-{{ ai_gen_id }}"></div>
+    {% endif %}
+
+    <div class="ai-as-seen-on-marquee-wrapper-{{ ai_gen_id }}">
+      <div class="ai-as-seen-on-marquee-{{ ai_gen_id }}" data-marquee>
+        {% for i in (1..9) %}
+          {% assign logo_key = 'logo_' | append: i %}
+          {% assign logo = block.settings[logo_key] %}
+          
+          {% if logo != blank %}
+            <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+              <img
+                src="{{ logo | image_url: width: 400 }}"
+                alt="{{ logo.alt | escape }}"
+                loading="lazy"
+                width="200"
+                height="{{ block.settings.logo_height }}"
+              >
+            </div>
+          {% else %}
+            <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+              <div class="ai-as-seen-on-logo-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+
+        {% for i in (1..9) %}
+          {% assign logo_key = 'logo_' | append: i %}
+          {% assign logo = block.settings[logo_key] %}
+          
+          {% if logo != blank %}
+            <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+              <img
+                src="{{ logo | image_url: width: 400 }}"
+                alt="{{ logo.alt | escape }}"
+                loading="lazy"
+                width="200"
+                height="{{ block.settings.logo_height }}"
+              >
+            </div>
+          {% else %}
+            <div class="ai-as-seen-on-logo-item-{{ ai_gen_id }}">
+              <div class="ai-as-seen-on-logo-placeholder-{{ ai_gen_id }}">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</as-seen-on-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class AsSeenOn{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.marquee = this.querySelector('[data-marquee]');
+        this.setupMarquee();
+      }
+
+      setupMarquee() {
+        if (!this.marquee) return;
+
+        const items = this.marquee.querySelectorAll('.ai-as-seen-on-logo-item-{{ ai_gen_id }}');
+        if (items.length === 0) return;
+
+        this.marquee.addEventListener('mouseenter', () => {
+          this.marquee.style.animationPlayState = 'paused';
+        });
+
+        this.marquee.addEventListener('mouseleave', () => {
+          this.marquee.style.animationPlayState = 'running';
+        });
+      }
+    }
+
+    customElements.define('as-seen-on-{{ ai_gen_id }}', AsSeenOn{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "As seen on",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Granny's Been Around"
+    },
+    {
+      "type": "range",
+      "id": "headline_size",
+      "label": "Headline size",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "headline_color",
+      "label": "Headline color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "headline_glow",
+      "label": "Headline glow",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "headline_glow_color",
+      "label": "Glow color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "range",
+      "id": "headline_spacing",
+      "label": "Spacing below headline",
+      "min": 10,
+      "max": 50,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Subheadline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheadline",
+      "label": "Subheadline",
+      "default": "As Seen On"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_size",
+      "label": "Subheadline size",
+      "min": 12,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheadline_color",
+      "label": "Subheadline color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "range",
+      "id": "subheadline_spacing",
+      "label": "Letter spacing",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Spacing below header",
+      "min": 20,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_divider",
+      "label": "Show divider",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Divider width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "divider_thickness",
+      "label": "Divider thickness",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "divider_margin",
+      "label": "Divider margin",
+      "min": 20,
+      "max": 60,
+      "step": 4,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_1",
+      "label": "Gradient start",
+      "default": "#1A1A2E"
+    },
+    {
+      "type": "color",
+      "id": "gradient_color_2",
+      "label": "Gradient end",
+      "default": "#2a1f3d"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_top",
+      "label": "Padding top",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "section_padding_bottom",
+      "label": "Padding bottom",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1600,
+      "step": 100,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "header",
+      "content": "Logo settings"
+    },
+    {
+      "type": "range",
+      "id": "logo_height",
+      "label": "Logo height",
+      "min": 40,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "label": "Logo max width",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "logo_spacing",
+      "label": "Logo spacing",
+      "min": 20,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "logo_padding",
+      "label": "Logo padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "logo_grayscale",
+      "label": "Grayscale",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "logo_opacity",
+      "label": "Opacity",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "logo_hover_brightness",
+      "label": "Hover brightness",
+      "min": 100,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "default": 110
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "s",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_1",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_2",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_3",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_4",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_5",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_6",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_7",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 8"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_8",
+      "label": "Logo image"
+    },
+    {
+      "type": "header",
+      "content": "Logo 9"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_9",
+      "label": "Logo image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "As seen on"
+    }
+  ]
+}
 {% endschema %}

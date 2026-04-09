@@ -1,6 +1,535 @@
+{% doc %}
+  @prompt
+    Create a fully functional, custom header and navigation menu section for a Shopify store called "Ester Flonaze" — a bold, theatrical drag performer brand.
+    
+    LAYOUT:
+    - Logo "Ester Flonaze" on the far LEFT in purple (#C15CCF) using Playfair Display Bold
+    - Navigation links (Home, Catalog, Contact) pulled from main-menu sit IMMEDIATELY NEXT TO the logo on the left side
+    - Search, account (person), and cart (shopping bag) icons aligned to the FAR RIGHT
+    - All items vertically centered in the header bar
+    - Do NOT place nav links in the center/middle of the header
+    
+    FUNCTIONAL REQUIREMENTS:
+    - Pull navigation links from linklists.main-menu.links
+    - Fully functional search icon (opens search), account icon (links to /account), cart icon (links to /cart) with live cart count
+    - Mobile-responsive hamburger menu in gold (#D4AF37) that toggles a dropdown nav open/closed
+    - Mobile dropdown uses same dark gradient background with consistently styled links
+    
+    BACKGROUND:
+    - Gradient from #1A1A2E (Deep Midnight) to #1E1535 (deep purple-tinted)
+    - Very soft shimmer/glitter CSS overlay (radial gradients, low opacity gold/purple dots) — subtle drag stage lighting
+    
+    GOLD ACCENT LINE:
+    - 2–3px gold (#D4AF37) line along the bottom of the header
+    - Pulsing glow animation using CSS keyframes — luxury, not flashy
+    
+    TYPOGRAPHY:
+    - Logo: Playfair Display Bold (Google Fonts), color #C15CCF (purple), larger and prominent
+    - Nav items: Raleway or Montserrat, letter-spacing 0.08em
+    
+    NAVIGATION HOVER EFFECTS:
+    - Default nav color: #C15CCF (purple)
+    - Hover: #D4AF37 (gold) with soft purple/pink text-shadow glow
+    - 150–200ms smooth transition
+    - Animated underline slides in from left on hover
+    
+    ICONS:
+    - Gold (#D4AF37), functional, hover glow effect
+    
+    VIBE: Drag show glam, Catholic meets nightlife, campy but clean, premium and alive. No flat styling, no tacky neon.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+
+{% style %}
+  @keyframes ai-gold-pulse-{{ ai_gen_id }} {
+    0%, 100% {
+      box-shadow: 0 0 8px rgba(212, 175, 55, 0.4), 0 0 16px rgba(212, 175, 55, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.6), 0 0 24px rgba(212, 175, 55, 0.3);
+    }
+  }
+
+  .ai-header-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    background: linear-gradient(135deg, #1A1A2E 0%, #1E1535 100%);
+    padding: {{ block.settings.header_padding }}px 0;
+    display: block;
+    overflow: hidden;
+  }
+
+  .ai-header-{{ ai_gen_id }}::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(193, 92, 207, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .ai-header-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: {{ block.settings.gold_line_height }}px;
+    background: #D4AF37;
+    animation: ai-gold-pulse-{{ ai_gen_id }} {{ block.settings.pulse_speed }}s ease-in-out infinite;
+    z-index: 2;
+  }
+
+  .ai-header-container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+    padding: 0 {{ block.settings.side_padding }}px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+  }
+
+  .ai-header-left-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.nav_gap }}px;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: {{ block.settings.logo_size }}px;
+    color: #C15CCF;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s ease;
+  }
+
+  .ai-header-logo-{{ ai_gen_id }}:hover {
+    opacity: 0.85;
+  }
+
+  .ai-header-nav-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.nav_link_spacing }}px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }} {
+    position: relative;
+    font-family: 'Raleway', sans-serif;
+    font-size: {{ block.settings.nav_font_size }}px;
+    font-weight: 500;
+    color: #C15CCF;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.15s ease, text-shadow 0.15s ease;
+    padding: 8px 0;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }}::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #D4AF37;
+    transition: width 0.2s ease;
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }}:hover {
+    color: #D4AF37;
+    text-shadow: 0 0 8px rgba(193, 92, 207, 0.4), 0 0 12px rgba(193, 92, 207, 0.2);
+  }
+
+  .ai-header-nav-link-{{ ai_gen_id }}:hover::after {
+    width: 100%;
+  }
+
+  .ai-header-right-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.icon_spacing }}px;
+  }
+
+  .ai-header-icon-{{ ai_gen_id }} {
+    position: relative;
+    color: #D4AF37;
+    text-decoration: none;
+    transition: color 0.15s ease, filter 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ai-header-icon-{{ ai_gen_id }}:hover {
+    filter: drop-shadow(0 0 6px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 10px rgba(212, 175, 55, 0.3));
+  }
+
+  .ai-header-icon-{{ ai_gen_id }} svg {
+    width: {{ block.settings.icon_size }}px;
+    height: {{ block.settings.icon_size }}px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-header-cart-count-{{ ai_gen_id }} {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #C15CCF;
+    color: #FFFFFF;
+    font-family: 'Raleway', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 10px;
+    min-width: 18px;
+    text-align: center;
+  }
+
+  .ai-header-mobile-toggle-{{ ai_gen_id }} {
+    display: none;
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    color: #D4AF37;
+  }
+
+  .ai-header-mobile-toggle-{{ ai_gen_id }} svg {
+    width: 28px;
+    height: 28px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ai-header-mobile-nav-{{ ai_gen_id }} {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1A1A2E 0%, #1E1535 100%);
+    border-top: 2px solid #D4AF37;
+    padding: 20px;
+    z-index: 1000;
+  }
+
+  .ai-header-mobile-nav-{{ ai_gen_id }}.active {
+    display: block;
+  }
+
+  .ai-header-mobile-nav-{{ ai_gen_id }} ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ai-header-mobile-nav-{{ ai_gen_id }} a {
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #C15CCF;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: block;
+    padding: 12px 0;
+    transition: color 0.15s ease;
+  }
+
+  .ai-header-mobile-nav-{{ ai_gen_id }} a:hover {
+    color: #D4AF37;
+  }
+
+  @media screen and (max-width: 768px) {
+    .ai-header-nav-{{ ai_gen_id }} {
+      display: none;
+    }
+
+    .ai-header-mobile-toggle-{{ ai_gen_id }} {
+      display: block;
+    }
+
+    .ai-header-logo-{{ ai_gen_id }} {
+      font-size: {{ block.settings.logo_size | times: 0.75 }}px;
+    }
+
+    .ai-header-icon-{{ ai_gen_id }} svg {
+      width: {{ block.settings.icon_size | times: 0.85 }}px;
+      height: {{ block.settings.icon_size | times: 0.85 }}px;
+    }
+
+    .ai-header-right-{{ ai_gen_id }} {
+      gap: {{ block.settings.icon_spacing | times: 0.7 }}px;
+    }
+  }
+{% endstyle %}
+
+<ester-flonaze-header-{{ ai_gen_id }} class="ai-header-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-header-container-{{ ai_gen_id }}">
+    <div class="ai-header-left-{{ ai_gen_id }}">
+      <a href="/" class="ai-header-logo-{{ ai_gen_id }}">{{ block.settings.logo_text }}</a>
+      
+      <nav>
+        <ul class="ai-header-nav-{{ ai_gen_id }}">
+          {% for link in linklists.main-menu.links %}
+            <li>
+              <a href="{{ link.url }}" class="ai-header-nav-link-{{ ai_gen_id }}">
+                {{ link.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="ai-header-right-{{ ai_gen_id }}">
+      <button class="ai-header-mobile-toggle-{{ ai_gen_id }}" aria-label="Toggle menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <a href="/search" class="ai-header-icon-{{ ai_gen_id }}" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </a>
+
+      <a href="/account" class="ai-header-icon-{{ ai_gen_id }}" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </a>
+
+      <a href="/cart" class="ai-header-icon-{{ ai_gen_id }}" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="ai-header-cart-count-{{ ai_gen_id }}">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+
+  <div class="ai-header-mobile-nav-{{ ai_gen_id }}">
+    <ul>
+      {% for link in linklists.main-menu.links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</ester-flonaze-header-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class EsterFlonazHeader{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.mobileToggle = this.querySelector('.ai-header-mobile-toggle-{{ ai_gen_id }}');
+        this.mobileNav = this.querySelector('.ai-header-mobile-nav-{{ ai_gen_id }}');
+        
+        if (this.mobileToggle && this.mobileNav) {
+          this.mobileToggle.addEventListener('click', () => this.toggleMobileNav());
+        }
+      }
+
+      toggleMobileNav() {
+        const isActive = this.mobileNav.classList.contains('active');
+        this.mobileNav.classList.toggle('active');
+        this.mobileToggle.setAttribute('aria-expanded', !isActive);
+      }
+    }
+
+    customElements.define('ester-flonaze-header-{{ ai_gen_id }}', EsterFlonazHeader{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Ester Flonaze header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "Ester Flonaze"
+    },
+    {
+      "type": "range",
+      "id": "logo_size",
+      "label": "Logo size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "label": "Font size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "nav_gap",
+      "label": "Gap between logo and nav",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "nav_link_spacing",
+      "label": "Space between links",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 18,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "icon_spacing",
+      "label": "Space between icons",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Maximum width",
+      "min": 1000,
+      "max": 1600,
+      "step": 50,
+      "unit": "px",
+      "default": 1400
+    },
+    {
+      "type": "range",
+      "id": "header_padding",
+      "label": "Vertical padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "side_padding",
+      "label": "Side padding",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Gold accent line"
+    },
+    {
+      "type": "range",
+      "id": "gold_line_height",
+      "label": "Line height",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "pulse_speed",
+      "label": "Pulse speed",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "unit": "s",
+      "default": 3
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ester Flonaze header"
+    }
+  ]
+}
 {% endschema %}

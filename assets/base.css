@@ -1,4 +1,21 @@
 :root {
+  --ester-purple: #8b2f8e;
+  --ester-gold: #d4af37;
+  --ester-midnight: #1a1a2e;
+  --ester-cream: #fff8f0;
+  --ester-pink: #e91e8c;
+  --ester-green: #2ecc71;
+  --ester-lavender: #e8d5f5;
+
+  --ester-purple-rgb: 139, 47, 142;
+  --ester-gold-rgb: 212, 175, 55;
+  --ester-midnight-rgb: 26, 26, 46;
+  --ester-cream-rgb: 255, 248, 240;
+
+  --font-ester-heading: 'Playfair Display', serif;
+  --font-ester-body: 'DM Sans', sans-serif;
+  --font-ester-button: 'Oswald', sans-serif;
+
   --alpha-button-background: 1;
   --alpha-button-border: 1;
   --alpha-link: 0.85;
@@ -3594,4 +3611,77 @@ details-disclosure > details {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+
+/* Ester Flonaze brand foundation */
+body {
+  background-color: var(--ester-cream);
+  color: var(--ester-midnight);
+  font-family: var(--font-ester-body);
+}
+
+h1,
+h2,
+.h1,
+.h2 {
+  font-family: var(--font-ester-heading);
+  font-weight: 700;
+}
+
+.header-wrapper,
+.section-header,
+footer,
+.footer,
+.shopify-section-group-footer-group {
+  background-color: var(--ester-midnight);
+  color: var(--ester-cream);
+}
+
+a,
+.link,
+.underlined-link,
+.customer a,
+.inline-richtext a,
+.rte a {
+  color: var(--ester-purple);
+}
+
+a:hover,
+.link:hover,
+.underlined-link:hover,
+.customer a:hover,
+.inline-richtext a:hover,
+.rte a:hover {
+  color: var(--ester-pink);
+}
+
+.button,
+.button-label,
+.shopify-challenge__button,
+.customer button,
+button.shopify-payment-button__button--unbranded {
+  font-family: var(--font-ester-button);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.button:not(.button--secondary):not(.button--tertiary),
+.shopify-challenge__button,
+.customer button,
+button.shopify-payment-button__button--unbranded {
+  --color-button: var(--ester-purple-rgb);
+  --color-button-text: var(--ester-cream-rgb);
+}
+
+.button.button--secondary {
+  --color-button: var(--ester-gold-rgb);
+  --color-button-text: var(--ester-gold-rgb);
+  --alpha-button-background: 0;
+}
+
+.button.button--secondary:after {
+  box-shadow: 0 0 0 calc(var(--buttons-border-width) + var(--border-offset)) rgba(var(--color-button-text), 1),
+    0 0 0 var(--buttons-border-width) rgba(var(--color-button), 0);
 }

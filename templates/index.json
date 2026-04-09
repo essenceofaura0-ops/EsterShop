@@ -15,7 +15,7 @@
         "heading": {
           "type": "heading",
           "settings": {
-            "heading": "Welcome Darlings",
+            "heading": "Welcome, Darlings",
             "heading_size": "h0"
           }
         },
@@ -44,7 +44,7 @@
         "button"
       ],
       "settings": {
-        "image": "shopify://shop_images/Ester_Flonaze_s_glamorous_drag_moment.png",
+        "image": "shopify://shop_images/Ester_Flonaze_s_glamorous_drag_moment_d0c219be-ecf6-453b-abf1-4157e9c6f925.png",
         "image_overlay_opacity": 40,
         "image_height": "large",
         "image_behavior": "none",

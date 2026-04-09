@@ -1,6 +1,703 @@
+{% doc %}
+  @prompt
+    Redesign the "Meet Your Favorite Glamma" section on a Shopify homepage for a drag brand called Ester Flonaze. This should be a featured brand introduction section that feels glamorous, modern, slightly theatrical, and full of personality.
+    
+    CARD / CONTAINER:
+    - Wrap the section in a soft cream/warm off-white container (#FFF8F0)
+    - Rounded corners, subtle drop shadow for depth
+    - Feels like a "spotlight" feature block, not a default text block
+    
+    HEADLINE:
+    - Text: "Meet Your Favorite Glamma"
+    - Font: Playfair Display Bold (import from Google Fonts)
+    - Bold, theatrical, prominent
+    - Followed by a thin centered gold divider line (#D4AF37) with a subtle glow/gradient
+    
+    CIRCULAR IMAGE:
+    - Add a circular image element with an image picker field (editable in Shopify Theme Editor)
+    - If no image uploaded, show a soft neutral gradient placeholder
+    - Styling: circular crop, thin gold border (#D4AF37), slight shadow
+    - Desktop: image on the LEFT side of the text
+    - Mobile: image stacks ABOVE the text
+    
+    BODY COPY:
+    - Include paragraph text about Ester Flonaze — Milwaukee's fiercest grandmother, bringing sass and chaos
+    - Highlight key phrases "Milwaukee's fiercest grandmother" and "sass, chaos" in purple (#C15CCF) and gold (#D4AF37)
+    - Improved paragraph spacing and readability
+    - Font: Raleway or Montserrat
+    
+    SIGNATURE LINE:
+    - Add a small line below the paragraph: "Not for the faint of heart." or "Granny said so."
+    - Smaller font, slightly italic
+    - Gold (#D4AF37) or lavender color
+    
+    SPACING & LAYOUT:
+    - Generous vertical padding for a premium feel
+    - Clean alignment and balance between image and text
+    - Not cramped
+    
+    MOBILE:
+    - Image stacks above text
+    - Text remains readable and well spaced
+    - Divider and accents scale properly
+    - Strong visual hierarchy maintained
+    
+    VIBE: Drag performer introduction, glam meets warmth, personality-first. A "meet the icon" moment. No flat design, no corporate feel, no tacky neon.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Raleway:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+{% style %}
+  .ai-glamma-intro-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .ai-glamma-container-{{ ai_gen_id }} {
+    background-color: {{ block.settings.container_bg_color }};
+    border-radius: {{ block.settings.border_radius }}px;
+    box-shadow: 0 {{ block.settings.shadow_vertical }}px {{ block.settings.shadow_blur }}px rgba(0, 0, 0, {{ block.settings.shadow_opacity }});
+    padding: {{ block.settings.padding_vertical }}px {{ block.settings.padding_horizontal }}px;
+  }
+
+  .ai-glamma-header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .ai-glamma-heading-{{ ai_gen_id }} {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 20px 0;
+    line-height: 1.2;
+  }
+
+  .ai-glamma-divider-{{ ai_gen_id }} {
+    width: {{ block.settings.divider_width }}px;
+    height: {{ block.settings.divider_height }}px;
+    background: linear-gradient(90deg, transparent, {{ block.settings.divider_color }}, transparent);
+    margin: 0 auto;
+    box-shadow: 0 0 {{ block.settings.divider_glow }}px {{ block.settings.divider_color }};
+  }
+
+  .ai-glamma-content-{{ ai_gen_id }} {
+    display: flex;
+    align-items: center;
+    gap: {{ block.settings.content_gap }}px;
+  }
+
+  .ai-glamma-image-wrapper-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: {{ block.settings.image_size }}px;
+    height: {{ block.settings.image_size }}px;
+  }
+
+  .ai-glamma-image-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: {{ block.settings.image_border_width }}px solid {{ block.settings.image_border_color }};
+    box-shadow: 0 {{ block.settings.image_shadow_vertical }}px {{ block.settings.image_shadow_blur }}px rgba(0, 0, 0, {{ block.settings.image_shadow_opacity }});
+  }
+
+  .ai-glamma-image-placeholder-{{ ai_gen_id }} {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, {{ block.settings.placeholder_color_1 }}, {{ block.settings.placeholder_color_2 }});
+    border: {{ block.settings.image_border_width }}px solid {{ block.settings.image_border_color }};
+    box-shadow: 0 {{ block.settings.image_shadow_vertical }}px {{ block.settings.image_shadow_blur }}px rgba(0, 0, 0, {{ block.settings.image_shadow_opacity }});
+  }
+
+  .ai-glamma-text-{{ ai_gen_id }} {
+    flex-grow: 1;
+  }
+
+  .ai-glamma-body-{{ ai_gen_id }} {
+    font-family: 'Raleway', sans-serif;
+    font-size: {{ block.settings.body_size }}px;
+    line-height: 1.8;
+    color: {{ block.settings.body_color }};
+    margin: 0 0 {{ block.settings.paragraph_spacing }}px 0;
+  }
+
+  .ai-glamma-body-{{ ai_gen_id }} p {
+    margin: 0 0 {{ block.settings.paragraph_spacing }}px 0;
+  }
+
+  .ai-glamma-body-{{ ai_gen_id }} p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ai-glamma-highlight-purple-{{ ai_gen_id }} {
+    color: {{ block.settings.highlight_purple }};
+    font-weight: 600;
+  }
+
+  .ai-glamma-highlight-gold-{{ ai_gen_id }} {
+    color: {{ block.settings.highlight_gold }};
+    font-weight: 600;
+  }
+
+  .ai-glamma-signature-{{ ai_gen_id }} {
+    font-family: 'Raleway', sans-serif;
+    font-size: {{ block.settings.signature_size }}px;
+    font-style: italic;
+    color: {{ block.settings.signature_color }};
+    margin-top: {{ block.settings.signature_spacing }}px;
+    text-align: {{ block.settings.signature_alignment }};
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-glamma-intro-{{ ai_gen_id }} {
+      width: 100%;
+    }
+
+    .ai-glamma-container-{{ ai_gen_id }} {
+      padding: {{ block.settings.mobile_padding_vertical }}px {{ block.settings.mobile_padding_horizontal }}px;
+    }
+
+    .ai-glamma-heading-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_heading_size }}px;
+    }
+
+    .ai-glamma-content-{{ ai_gen_id }} {
+      flex-direction: column;
+      gap: {{ block.settings.mobile_content_gap }}px;
+    }
+
+    .ai-glamma-image-wrapper-{{ ai_gen_id }} {
+      width: {{ block.settings.mobile_image_size }}px;
+      height: {{ block.settings.mobile_image_size }}px;
+    }
+
+    .ai-glamma-body-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_body_size }}px;
+    }
+
+    .ai-glamma-signature-{{ ai_gen_id }} {
+      font-size: {{ block.settings.mobile_signature_size }}px;
+    }
+  }
+{% endstyle %}
+
+<glamma-intro-{{ ai_gen_id }} class="ai-glamma-intro-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-glamma-container-{{ ai_gen_id }}">
+    <div class="ai-glamma-header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-glamma-heading-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      <div class="ai-glamma-divider-{{ ai_gen_id }}"></div>
+    </div>
+
+    <div class="ai-glamma-content-{{ ai_gen_id }}">
+      <div class="ai-glamma-image-wrapper-{{ ai_gen_id }}">
+        {% if block.settings.image %}
+          <img
+            src="{{ block.settings.image | image_url: width: 600 }}"
+            alt="{{ block.settings.image.alt | escape }}"
+            loading="lazy"
+            width="600"
+            height="600"
+            class="ai-glamma-image-{{ ai_gen_id }}"
+          >
+        {% else %}
+          <div class="ai-glamma-image-placeholder-{{ ai_gen_id }}"></div>
+        {% endif %}
+      </div>
+
+      <div class="ai-glamma-text-{{ ai_gen_id }}">
+        {% if block.settings.body_text != blank %}
+          <div class="ai-glamma-body-{{ ai_gen_id }}">
+            {{ block.settings.body_text }}
+          </div>
+        {% endif %}
+
+        {% if block.settings.signature_text != blank %}
+          <div class="ai-glamma-signature-{{ ai_gen_id }}">
+            {{ block.settings.signature_text }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</glamma-intro-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class GlammaIntro{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.highlightKeyPhrases();
+      }
+
+      highlightKeyPhrases() {
+        const bodyElement = this.querySelector('.ai-glamma-body-{{ ai_gen_id }}');
+        if (!bodyElement) return;
+
+        let html = bodyElement.innerHTML;
+
+        const purplePhrases = [
+          "Milwaukee's fiercest grandmother",
+          "Milwaukee's fiercest",
+          "fiercest grandmother"
+        ];
+
+        const goldPhrases = [
+          "sass and chaos",
+          "sass, chaos",
+          "sass",
+          "chaos"
+        ];
+
+        purplePhrases.forEach(phrase => {
+          const regex = new RegExp(`(${phrase})`, 'gi');
+          html = html.replace(regex, '<span class="ai-glamma-highlight-purple-{{ ai_gen_id }}">$1</span>');
+        });
+
+        goldPhrases.forEach(phrase => {
+          const regex = new RegExp(`(${phrase})`, 'gi');
+          html = html.replace(regex, '<span class="ai-glamma-highlight-gold-{{ ai_gen_id }}">$1</span>');
+        });
+
+        bodyElement.innerHTML = html;
+      }
+    }
+
+    customElements.define('glamma-intro-{{ ai_gen_id }}', GlammaIntro{{ ai_gen_id }});
+  })();
+</script>
+
 {% schema %}
- {
-   "name": "AI_Block",
-   "tag": "shopify-ai-generated-block"
- }
+{
+  "name": "Meet your favorite Glamma",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Headline"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Meet Your Favorite Glamma"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Divider"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "Width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "label": "Height",
+      "min": 1,
+      "max": 5,
+      "step": 1,
+      "unit": "px",
+      "default": 2
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "range",
+      "id": "divider_glow",
+      "label": "Glow intensity",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_size",
+      "label": "Image size",
+      "min": 100,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "mobile_image_size",
+      "label": "Mobile image size",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "image_border_width",
+      "label": "Border width",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "color",
+      "id": "image_border_color",
+      "label": "Border color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "range",
+      "id": "image_shadow_vertical",
+      "label": "Shadow vertical offset",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "image_shadow_blur",
+      "label": "Shadow blur",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "image_shadow_opacity",
+      "label": "Shadow opacity",
+      "min": 0,
+      "max": 1,
+      "step": 0.1,
+      "default": 0.2
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color_1",
+      "label": "Placeholder gradient start",
+      "default": "#f5e6d3"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color_2",
+      "label": "Placeholder gradient end",
+      "default": "#d4c5b0"
+    },
+    {
+      "type": "header",
+      "content": "Body text"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Body text",
+      "default": "<p>Meet Ester Flonaze, Milwaukee's fiercest grandmother, bringing sass and chaos to every stage. With a wig as tall as her personality and heels sharper than her wit, Ester serves glamour with a side of mischief. She's not your average granny—she's a drag icon who turns heads and breaks hearts.</p><p>From the ballroom to the runway, Ester commands attention with theatrical flair and unapologetic confidence. Whether she's serving looks or serving tea, one thing's for sure: Ester Flonaze is unforgettable.</p>"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_size",
+      "label": "Mobile body text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "paragraph_spacing",
+      "label": "Paragraph spacing",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "highlight_purple",
+      "label": "Purple highlight color",
+      "default": "#C15CCF"
+    },
+    {
+      "type": "color",
+      "id": "highlight_gold",
+      "label": "Gold highlight color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "header",
+      "content": "Signature line"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "signature_text",
+      "label": "Signature text",
+      "default": "Not for the faint of heart."
+    },
+    {
+      "type": "range",
+      "id": "signature_size",
+      "label": "Signature size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "mobile_signature_size",
+      "label": "Mobile signature size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "signature_color",
+      "label": "Signature color",
+      "default": "#D4AF37"
+    },
+    {
+      "type": "select",
+      "id": "signature_alignment",
+      "label": "Signature alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "signature_spacing",
+      "label": "Signature top spacing",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Container style"
+    },
+    {
+      "type": "color",
+      "id": "container_bg_color",
+      "label": "Background color",
+      "default": "#FFF8F0"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "shadow_vertical",
+      "label": "Shadow vertical offset",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "shadow_blur",
+      "label": "Shadow blur",
+      "min": 0,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "Shadow opacity",
+      "min": 0,
+      "max": 0.5,
+      "step": 0.1,
+      "default": 0.1
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_vertical",
+      "label": "Vertical padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "label": "Horizontal padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_vertical",
+      "label": "Mobile vertical padding",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_horizontal",
+      "label": "Mobile horizontal padding",
+      "min": 15,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "content_gap",
+      "label": "Content gap",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_content_gap",
+      "label": "Mobile content gap",
+      "min": 15,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Meet your favorite Glamma"
+    }
+  ]
+}
 {% endschema %}

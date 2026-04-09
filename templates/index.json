@@ -142,6 +142,30 @@
       ],
       "settings": {}
     },
+    "17757665518fb66960": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_cc4aeee_GjHW3m": {
+          "type": "ai_gen_block_cc4aeee",
+          "settings": {
+            "logo_1": "shopify://shop_images/Yahoo_news_logo_svg.png",
+            "logo_2": "shopify://shop_images/WMSE_Logo_PNG.webp",
+            "logo_3": "shopify://shop_images/WDJT_CBS_58_flat_logo.svg",
+            "logo_4": "shopify://shop_images/travel-wisonsin-logo.png",
+            "logo_5": "shopify://shop_images/TMJ_4_2020_gradient_svg.png",
+            "logo_6": "shopify://shop_images/craft-brewing-business-logo-300x151_1.png",
+            "logo_7": "shopify://shop_images/Urban_Milwaukee_logo.png",
+            "logo_8": "shopify://shop_images/Untitled_design_55.png",
+            "logo_9": "shopify://shop_images/WISN-TV_logo_2022_svg.png"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_cc4aeee_GjHW3m"
+      ],
+      "settings": {}
+    },
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
@@ -292,72 +316,8 @@
       "type": "_blocks",
       "settings": {}
     },
-    "17757665518fb66960": {
-      "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_cc4aeee_GjHW3m": {
-          "type": "ai_gen_block_cc4aeee",
-          "settings": {
-            "logo_1": "shopify://shop_images/Yahoo_news_logo_svg.png",
-            "logo_2": "shopify://shop_images/WMSE_Logo_PNG.webp",
-            "logo_3": "shopify://shop_images/WDJT_CBS_58_flat_logo.svg",
-            "logo_4": "shopify://shop_images/travel-wisonsin-logo.png",
-            "logo_5": "shopify://shop_images/TMJ_4_2020_gradient_svg.png",
-            "logo_6": "shopify://shop_images/craft-brewing-business-logo-300x151_1.png",
-            "logo_7": "shopify://shop_images/Urban_Milwaukee_logo.png",
-            "logo_8": "shopify://shop_images/Untitled_design_55.png",
-            "logo_9": "shopify://shop_images/WISN-TV_logo_2022_svg.png"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_cc4aeee_GjHW3m"
-      ],
-      "settings": {}
-    },
     "1775767148b1832d33": {
       "type": "_blocks",
-      "blocks": {
-        "ai_gen_block_1b49bc2_eMdXaK": {
-          "type": "ai_gen_block_1b49bc2",
-          "settings": {
-            "image_position": "center",
-            "banner_height_desktop": 600,
-            "banner_height_mobile": 500,
-            "enable_gradient_overlay": true,
-            "overlay_opacity": 30,
-            "heading": "Welcome, Darlings",
-            "heading_size": 70,
-            "heading_letter_spacing": 2,
-            "heading_color": "#FFFFFF",
-            "heading_delay": 3,
-            "enable_shimmer": true,
-            "subheading": "<p>Step into glamour and confidence</p>",
-            "subheading_size": 20,
-            "subheading_color": "#F0F0F0",
-            "subheading_delay": 8,
-            "button_text": "Shop Now",
-            "button_link": "",
-            "button_background": "#D4AF37",
-            "enable_button_gradient": true,
-            "button_text_color": "#1A1A2E",
-            "button_font_size": 16,
-            "button_letter_spacing": 20,
-            "button_padding_vertical": 16,
-            "button_padding_horizontal": 40,
-            "button_border_radius": 6,
-            "button_hover_scale": 104,
-            "enable_button_sparkle": true,
-            "button_delay": 12,
-            "content_max_width": 800
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "ai_gen_block_1b49bc2_eMdXaK"
-      ],
       "settings": {}
     }
   },
@@ -365,6 +325,7 @@
     "17757605200e156539",
     "image_banner",
     "17757610839196273d",
+    "17757665518fb66960",
     "featured_collection",
     "collage",
     "video",
@@ -373,7 +334,6 @@
     "1775765304bcd87362",
     "17757653875bfc6b6a",
     "177576629596932b57",
-    "17757665518fb66960",
     "1775767148b1832d33"
   ]
 }
